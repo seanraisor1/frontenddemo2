@@ -1,1 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Dialed - AI Funnels That Convert Cold Traffic Into $10K+ Clients</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-dark: #0A0A0A;
+            --secondary-dark: #1A1A1A;
+            --accent-copper: #B87333;
+            --accent-copper-light: #D4915C;
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+            --border-color: #2A2A2A;
+            --gradient-1: linear-gradient(135deg, #B87333 0%, #D4915C 100%);
+            --gradient-2: linear-gradient(180deg, rgba(184, 115, 51, 0.1) 0%, rgba(184, 115, 51, 0) 100%);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Sticky CTA Bar */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            padding: 15px 0;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .sticky-cta.show {
+            transform: translateY(0);
+        }
+        
+        .sticky-cta-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .sticky-cta-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+            position: relative;
+            background: var(--gradient-2);
+        }
+        
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero h1 span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero .subheadline {
+            font-size: clamp(18px, 3vw, 24px);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+        
+        .hero .subheadline .urgency {
+            color: var(--accent-copper);
+            font-weight: 600;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 20px rgba(184, 115, 51, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(184, 115, 51, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--secondary-dark);
+            border-color: var(--accent-copper);
+        }
+        
+        /* Lead Capture Section */
+        .lead-capture {
+            padding: 80px 0;
+            background: var(--secondary-dark);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .lead-capture-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .lead-capture h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .lead-capture p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+        
+        .form-placeholder {
+            background: var(--primary-dark);
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        
+        /* Live Demo Section */
+        .live-demo {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .live-demo h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 48px;
+        }
+        
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--secondary-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .video-placeholder {
+            aspect-ratio: 16/9;
+            background: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+        
+        .demo-cta {
+            margin-top: 48px;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background: var(--secondary-dark);
+        }
+        
+        .testimonials h2 {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 64px;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+        }
+        
+        .testimonial-card {
+            background: var(--primary-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-copper);
+            box-shadow: 0 10px 40px rgba(184, 115, 51, 0.1);
+        }
+        
+        .stars {
+            color: var(--accent-copper);
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .testimonial-quote {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+        
+        .testimonial-author {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+        
+        .testimonial-author strong {
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .pricing h2 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 64px;
+        }
+        
+        .pricing-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--secondary-dark);
+            border: 2px solid var(--accent-copper);
+            border-radius: 20px;
+            padding: 48px;
+            box-shadow: 0 20px 60px rgba(184, 115, 51, 0.2);
+        }
+        
+        .price {
+            font-size: 64px;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        
+        .price-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+        }
+        
+        .features-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 48px;
+        }
+        
+        .features-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 18px;
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .check {
+            color: var(--accent-copper);
+            font-size: 24px;
+        }
+        
+        .pricing-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0 100px;
+            text-align: center;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sticky-cta-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-cta {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">Frontend Dialed</div>
+                <a href="#" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="animate-in">I Build <span>AI Funnels</span> That Turn<br>Cold Instagram Traffic Into<br><span>$10K+ Clients</span></h1>
+            <p class="subheadline animate-in">While you sleep, my bots qualify leads, book calls, and collect payments<br><span class="urgency">⚡ Only taking 5 new clients this month</span></p>
+            <a href="#" class="btn btn-primary animate-in">Get My Custom Funnel →</a>
+        </div>
+    </section>
+
+    <!-- Lead Capture Section -->
+    <section class="lead-capture">
+        <div class="container">
+            <div class="lead-capture-content">
+                <h2>Claim Your Free Funnel Walkthrough</h2>
+                <p>See exactly how I'll build your automated sales system in under 10 minutes</p>
+                <div class="form-placeholder">
+                    <!-- MailerLite or Tally embed code goes here -->
+                    <p>[Insert MailerLite/Tally form embed code here]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section class="live-demo">
+        <div class="container">
+            <h2>See It In Action</h2>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <img src="" alt="insert demo GIF or video here">
+                </div>
+            </div>
+            <div class="demo-cta">
+                <a href="#" class="btn btn-primary">Build My Funnel Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Real Results From Real Clients</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-quote">"Within 48 hours of launching, I had 3 qualified calls booked and closed my first $5K client. This funnel paid for itself 2x over in the first week."</p>
+                    <div class="testimonial-author">
+                        <strong>Sarah Mitchell</strong>
+                        Business Coach
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-quote">"I went from manually DMing 50+ people a day to having AI handle everything. Now I only talk to people ready to buy. Game changer."</p>
+                    <div class="testimonial-author">
+                        <strong>Marcus Rodriguez</strong>
+                        Real Estate Agent
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-quote">"The AI literally sounds like me. My audience has no idea it's automated until they're already booked and excited to work with me."</p>
+                    <div class="testimonial-author">
+                        <strong>Emma Chen</strong>
+                        Content Creator
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <div class="container">
+            <h2>One Investment. Unlimited Returns.</h2>
+            <div class="pricing-card">
+                <div class="price">$2,500</div>
+                <p class="price-subtitle">One-Time Payment</p>
+                <ul class="features-list">
+                    <li><span class="check">✓</span> Custom AI Chatbot trained on your voice & offers</li>
+                    <li><span class="check">✓</span> Complete sales funnel with landing pages</li>
+                    <li><span class="check">✓</span> Automated booking system (Calendly integration)</li>
+                    <li><span class="check">✓</span> Payment collection (Stripe integration)</li>
+                    <li><span class="check">✓</span> Follow-up email sequences</li>
+                    <li><span class="check">✓</span> 30-day performance guarantee</li>
+                    <li><span class="check">✓</span> Lifetime updates & support</li>
+                </ul>
+                <div class="pricing-cta">
+                    <a href="#" class="btn btn-primary">Pay Now →</a>
+                    <a href="#" class="btn btn-secondary">Book a Call</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Frontend Dialed. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Sticky CTA Bar -->
+    <div class="sticky-cta" id="stickyCTA">
+        <div class="container">
+            <div class="sticky-cta-content">
+                <span class="sticky-cta-text">Ready to automate your sales? Limited spots available.</span>
+                <a href="#" class="btn btn-primary">Get My Custom Funnel</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show sticky CTA after scrolling
+        window.addEventListener('scroll', function() {
+            const stickyCTA = document.getElementById('stickyCTA');
+            if (window.scrollY > 500) {
+                stickyCTA.classList.add('show');
+            } else {
+                stickyCTA.classList.remove('show');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
